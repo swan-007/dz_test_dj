@@ -20,10 +20,10 @@ def cours_factory():
 @pytest.mark.django_db
 def test_api_client(client, cours_factory):
     cours = cours_factory(_quantity=1, name='python1')
-    response = client.get('/api/v1/courses/?name=python1')
+    response = client.get(f'/api/v1/courses/{cours[0].id}/')
     data = response.json()
     assert response.status_code == 200
-    assert data[0]['name'] == 'python1'
+    assert data['id'] == cours[0].id
 
 @pytest.mark.django_db
 def test_cours_get_2(client, cours_factory):
